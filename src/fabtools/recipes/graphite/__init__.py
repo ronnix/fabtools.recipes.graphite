@@ -38,6 +38,7 @@ def install_graphite(target_dir='/opt/graphite', local_port=6000):
             'django',
             'django-tagging',
             'gunicorn',
+            'simplejson',
         ], virtualenv=target_dir)
 
         # Require a recent libcairo
