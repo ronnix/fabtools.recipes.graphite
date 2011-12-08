@@ -67,7 +67,15 @@ def install_graphite(target_dir='/opt/graphite', local_port=6000):
             with cd('webapp/graphite'):
                 run('python manage.py syncdb --noinput')
 
-    # Ensure we have a supervisor process for our app
+    # Run the Carbon daemon
+    server = os.path.join(target_dir, 'bin', 'carbon-cache.py')
+    require.supervisor.process('carbon',
+        command='%s start' % server,
+        directory=target_dir,
+        user=env.user
+        )
+
+    # Run the Django web app
     require.supervisor.process('graphite',
         command='%s -b 127.0.0.1:%d "%s"' % (
             os.path.join(target_dir, 'bin', 'gunicorn_django'),
