@@ -76,7 +76,7 @@ def install_graphite(target_dir='/opt/graphite', local_port=6000,
     # Run the Carbon daemon
     server = os.path.join(target_dir, 'bin', 'carbon-cache.py')
     require.supervisor.process('carbon',
-        command='%s start' % server,
+        command='%s --debug start' % server,
         directory=target_dir,
         user=env.user
         )
