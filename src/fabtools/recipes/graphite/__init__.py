@@ -25,7 +25,8 @@ retentions = 10:2160,60:10080,600:262974
 
 
 @task
-def install_graphite(target_dir='/opt/graphite', local_port=6000):
+def install_graphite(target_dir='/opt/graphite', local_port=6000,
+                     server_name='graphite', port=80):
     """
     Install graphite
     """
@@ -92,7 +93,7 @@ def install_graphite(target_dir='/opt/graphite', local_port=6000):
 
     # Configure web server
     require.nginx.server()
-    require.nginx.proxied_site('graphite',
+    require.nginx.proxied_site(server_name, port=port,
         docroot=os.path.join(target_dir, 'webapp', 'content'),
         proxy_url='http://127.0.0.1:%d' % int(local_port)
         )
