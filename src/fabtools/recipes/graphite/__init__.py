@@ -12,6 +12,10 @@ from fabtools.files import is_file
 from fabtools import require
 
 
+# Default data retention policy:
+# - 10 sec precision for 6 hours
+# - 1 min precision for 1 week
+# - 10 min precision for 5 years
 STORAGE_SCHEMA = """\
 [stats]
 priority = 110
